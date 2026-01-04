@@ -23,7 +23,9 @@ export const {handlers, auth, signIn, signOut} = NextAuth({
         signIn: "/signin",
     },
     callbacks: {
-        authorized: async ({auth}) => {
+        authorized: async ({request, auth}) => {
+            const { pathname } = request.nextUrl
+            if (pathname === '/') return true
             // Logged-in users are authenticated, otherwise redirect to login page
             return !!auth;
         },
